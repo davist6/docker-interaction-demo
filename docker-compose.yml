@@ -1,0 +1,16 @@
+version: '3'
+
+services:
+  nginx-container:
+    image: nginx:latest
+    ports:
+      - "80:80"
+    restart: always
+    container_name: demo-nginx-container
+
+  ubuntu-container:
+    image: ubuntu:latest
+    volumes:
+      - ./CurlOutput:/output
+    command: ["/bin/sh", "-c", "apt-get update && apt-get install -y curl && curl -o /output/index.html http://demo-nginx-container && ls /output"]
+    container_name: demo-ubuntu-container
